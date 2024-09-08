@@ -27,7 +27,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Products</a>
+                        <a class="nav-link active" aria-current="page" href="/">Products</a>
+                    </li>
+                    <li class="nav-item"></li>
+                        <a class="nav-link active" aria-current="page" href="/new">New Product</a>
                     </li>
                 </ul>
             </div>
@@ -47,7 +50,7 @@
  1. Installing ejs layout
  2. using middleware in index.js
  3. separating code logic and creating layout.ejs
- 
+
 https://www.npmjs.com/package/express-ejs-layouts
 "express-ejs-layouts": "^2.5.1"
 Layouts basically becomes middle ware which wraps other views inside it
@@ -62,5 +65,10 @@ We have a body in ejs to combine
 :=> Working same as we can keep header footer and everything which is common in layout ejs file
 and will render only the changing from other files using ejs and layouts
 
+
+
+
+
 -->
+
 

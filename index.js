@@ -24,6 +24,11 @@ server.use(ejsLayouts) //middleware after setting app and views.
 const productController = new ProductController()
 //get request
 server.get('/', productController.getProducts)
+server.get('/new', productController.getAddForm) //seeing the form
+//When the form is submitting its post type so it should be post
+server.post('/', productController.addNewProduct) 
+//on the same url we are doing post with diff. fun
+
 
 //Already specified view
 server.use(express.static('src/views'))

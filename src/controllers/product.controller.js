@@ -38,6 +38,24 @@ export default class ProductController {
         // ) //using path module 
 
     }
+
+    //Another Controller method which will return the form which first they need to 
+    //see the form and submit the form (request second)
+    getAddForm(req, res) {
+        //as data is optional attribute no need to send any data.
+        return res.render('new-product'); //we are returning a form and ending the request here
+        //https://organic-cod-7pprg6pjrppfx46x-3400.app.github.dev/new
+        //we are seeing the form.
+    }
+
+    //adding data from the form
+    addNewProduct(req, res) {
+        //getting data from form and printing on console.
+        console.log(req.body)
+        //before rendering get the data from the form
+        render('products', {products: products})
+    }
+
 }
 
 /*
