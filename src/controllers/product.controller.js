@@ -1,3 +1,69 @@
+
+//Data validation is important as attacks like sql injection, etc is dangerous.
+//Validation on data is important and then we keep it on server validation
+
+import ProductModel from '../models/product.model.js';
+
+class ProductsController {
+  getProducts(req, res, next) {
+    var products = ProductModel.getAll();
+    res.render('index', { products });
+  }
+
+  getAddProduct(req, res, next) {
+    res.render('new-product', {
+      errorMessage: null,
+    });
+    //if we dont send the error Message we get the Error errorMessage is not defined.
+  }
+
+  postAddProduct(req, res, next) {
+    // validate data
+    //Extracting data to validate
+    const { name, price, imageUrl } = req.body;
+    let errors = []; //if we define let errors;
+                    //we get error like properties of undefined {reading 'push'}
+    //Name Validation
+    if (!name || name.trim() == '') {
+      errors.push('Name is required');
+    }
+
+    //Price Validation
+    if (!price || parseFloat(price) < 1) {
+      errors.push(
+        'Price must be a positive value'
+      );
+    }
+
+    //URL Validation using JS URL validation
+    try {
+      const validUrl = new URL(imageUrl);
+    } catch (err) {
+      errors.push('URL is invalid');
+    }
+
+    if (errors.length > 0) {
+      return res.render('new-product', {
+        errorMessage: errors[0],
+      });
+    }
+
+    ProductModel.add(req.body);
+    var products = ProductModel.getAll();
+    res.render('index', { products });
+  }
+}
+
+export default ProductsController;
+
+
+
+
+/*
+============================Previous Work Code==================================
+It works till adding a new Product in the homepage list==========================
+
+
 //ES6 module syntax
 import path from 'path'
 import ProductModel from '../models/product.model.js'; //accessing data in controller
@@ -8,64 +74,72 @@ export default class ProductController {
     //it returns the html file which we have in view folder
     //its kind of middleware having access to request and response
     getProducts(req, res){
-        /*
-        //function is from express we have to specify the path of file
+        
+//===========================Comment Here 2Start ========================
+
+            //function is from express we have to specify the path of file
         console.log(path.resolve()); // Error: ENOENT: no such file or directory, stat '/workspaces/Inventory_mgmt/index.html'
         res.sendFile(path.join(path.resolve(),'','index.html')) //using path module 
-        //path.resolve gives the path of current directory gives the controller path
+            //path.resolve gives the path of current directory gives the controller path
 
-        //We get the error as its expecting the path to be in the same directory as
-        //index.js but its not the case for index.html
+            //We get the error as its expecting the path to be in the same directory as
+            //index.js but its not the case for index.html
 
-        //Question is path.resolve should give the current directory which is controller
-        //But its giving index.js path.
-        //Answer: path.resolve() gives you the Path of current executing directory.
-        //so we are in root directory and we have to go in 'src','views'
-        and not using any / \ as mac and windows issue
-        */
+        /   /Question is path.resolve should give the current directory which is controller
+            //But its giving index.js path.
+            //Answer: path.resolve() gives you the Path of current executing directory.
+            //so we are in root directory and we have to go in 'src','views'
+            //and not using any / \ as mac and windows issue
+           
+//===========================Comment Here 2 End ========================
+        
         let products = ProductModel.get();
         console.log(products); //We are able to retrive data from the files in Models.
-        //Now the question is to place this data in the html content of products.html
-        //That is adding model data in view. Using View Engines (template Engines).
-        //To send data and ejs from the controler
-        //as we have already specified the views in the server only say products
+            //Now the question is to place this data in the html content of products.html
+            //That is adding model data in view. Using View Engines (template Engines).
+            //To send data and ejs from the controler
+            //as we have already specified the views in the server only say products
         res.render("products", {products:products})
-        //what ever keys we are specifying here "products"
-        //same have to be used in html as well.
+            //what ever keys we are specifying here "products"
+            //same have to be used in html as well.
 
-        // return res.sendFile(
-        //     path.join(path.resolve(),'src','views','products.html')
-        // ) //using path module 
+            // return res.sendFile(
+            //     path.join(path.resolve(),'src','views','products.html')
+            // ) //using path module 
 
     }
 
     //Another Controller method which will return the form which first they need to 
     //see the form and submit the form (request second)
     getAddForm(req, res) {
-        //as data is optional attribute no need to send any data.
+            //as data is optional attribute no need to send any data.
         return res.render('new-product'); //we are returning a form and ending the request here
-        //https://organic-cod-7pprg6pjrppfx46x-3400.app.github.dev/new
-        //we are seeing the form.
+            //https://organic-cod-7pprg6pjrppfx46x-3400.app.github.dev/new
+            //we are seeing the form.
     }
 
     //adding data from the form
     addNewProduct(req, res) {
-        //getting data from form and printing on console.
+            //Before adding the data we do the validation
+
+            //getting data from form and printing on console.
         console.log(req.body)
-        //we pass all the data to model from controller
+            //we pass all the data to model from controller
         ProductModel.add(req.body)
         let products = ProductModel.get();
-        //before rendering get the data from the form
+            //before rendering get the data from the form
         
-        //return res.render('products', {products})
-        //if we wont redirect the post will be called causing resubmission again and again
+            //return res.render('products', {products})
+            //if we wont redirect the post will be called causing resubmission again and again
         
         return res.redirect('/')
     }
 
 }
 
-/*
+
+======================================Comments Here============================================
+
 Dynamic content to be added in HTML file
 let message ="A message from MARS";
 
@@ -100,6 +174,9 @@ but ejs will work and handle.
 but before this we update the controller that it will return the ejs and also send product data.
 because browser dont understand ejs convert the rendered js part in html file to plain html
 and then renders it on browser.
+
+
+
 
 
 */
