@@ -2,6 +2,7 @@
 //const express = require("express"); // no more require as mjs / type module in json package
 import express from 'express'
 import path from 'path'
+import ejsLayouts from 'express-ejs-layouts'
 
 const server = express();
 import ProductController from "./src/controllers/product.controller.js";
@@ -10,6 +11,8 @@ import ProductController from "./src/controllers/product.controller.js";
 server.set('view engine','ejs')
 server.set('views', path.join(path.resolve(),'src','views'))
 //We just need to specify the folder where our views present.
+
+server.use(ejsLayouts) //middleware after setting app and views.
 
 //creating a middleware here
 // server.get("/", (req,req)=>{
@@ -27,3 +30,9 @@ server.use(express.static('src/views'))
 
 //making sure port is available
 server.listen(3400)
+
+
+//https://www.npmjs.com/package/express-ejs-layouts
+//"express-ejs-layouts": "^2.5.1"
+//Layouts basically becomes middle ware which wraps other views inside it
+
