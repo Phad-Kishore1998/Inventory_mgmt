@@ -17,37 +17,12 @@ class ProductsController {
     //if we dont send the error Message we get the Error errorMessage is not defined.
   }
 
+  //Single responsibility of the function
+  //As function gets change due to multiple reason 
+  //base functionality of the controller is to provide res to the req asked only this.
+ 
   postAddProduct(req, res, next) {
-    // validate data
-    //Extracting data to validate
-    const { name, price, imageUrl } = req.body;
-    let errors = []; //if we define let errors;
-                    //we get error like properties of undefined {reading 'push'}
-    //Name Validation
-    if (!name || name.trim() == '') {
-      errors.push('Name is required');
-    }
-
-    //Price Validation
-    if (!price || parseFloat(price) < 1) {
-      errors.push(
-        'Price must be a positive value'
-      );
-    }
-
-    //URL Validation using JS URL validation
-    try {
-      const validUrl = new URL(imageUrl);
-    } catch (err) {
-      errors.push('URL is invalid');
-    }
-
-    if (errors.length > 0) {
-      return res.render('new-product', {
-        errorMessage: errors[0],
-      });
-    }
-
+    //controller does need to know about its middleware its not his responsibility
     ProductModel.add(req.body);
     var products = ProductModel.getAll();
     res.render('index', { products });

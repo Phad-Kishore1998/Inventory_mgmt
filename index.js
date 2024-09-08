@@ -2,11 +2,13 @@ import express from 'express';
 import ProductsController from './src/controllers/product.controller.js';
 import ejsLayouts from 'express-ejs-layouts';
 import path from 'path';
+import validationMiddleware from './src/middlewares/validation.middleware.js';
 
 const app = express();
 const productsController =
   new ProductsController();
 
+//like this ejslayout it applys middleware to all the request of application
 app.use(ejsLayouts);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,7 +23,9 @@ app.get(
   '/new',
   productsController.getAddProduct
 );
-app.post('/', productsController.postAddProduct);
+
+//here we add the validation middleware before calling postAddProducts
+app.post('/', validationMiddleware, productsController.postAddProduct);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
