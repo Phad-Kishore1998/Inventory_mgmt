@@ -45,7 +45,7 @@ const validateRequest = async (req, res, next) => {
     //1.Setup the rules for validation (Like if empty then error)
     const rules=[
       //rules on the individual fields for this we import the body from the express validator
-      body('name').isEmpty().withMessage("Name is required"),
+      body('name').notEmpty().withMessage("Name is required"),
       body('price').isFloat({gt:0}).withMessage("Price should be positive Value"),
       body('imageUrl').isURL().withMessage("Invalid url"),
     ];
@@ -55,7 +55,8 @@ const validateRequest = async (req, res, next) => {
     );
     //3. check if there are any errors after running the rules.
     var validationErrors = validationResult(req); //returns the error list 
-
+    console.log(validationErrors);
+    
     //4. if errors, return the error message
     if(!validationErrors.isEmpty()){
         return res.render('new-product', {
