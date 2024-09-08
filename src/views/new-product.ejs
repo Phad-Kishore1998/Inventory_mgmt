@@ -45,7 +45,17 @@ Here href /new will use
 
 
 We now focus on submitting the forma and getting the details on the main Products list
+It gives undefined till we dont parse the Data 
+So here: console.log(req.body)
+        let products = ProductModel.get();
+        //before rendering get the data from the form
+        res.render('products', {products: products})
 
+    In Controller
+    we were getting undefined to format
+
+    Express has a middleware builtin for parsing the FORM data.
+    
 
 
 -->

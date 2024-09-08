@@ -7,6 +7,15 @@ import ejsLayouts from 'express-ejs-layouts'
 const server = express();
 import ProductController from "./src/controllers/product.controller.js";
 
+
+// parse form data
+//extended option : allowa to choose between parsing the url-encoded data with
+//querystring library (when false) or the qa library(when true)
+server.use(express.urlencoded({extended: true})) //it returns middleware that only parses urlencoded bodies and only
+//looks at requests where the Content-Type header matches the type option
+//Take the data and parse it and put inside the body.
+
+
 //setup view Engine settings
 server.set('view engine','ejs')
 server.set('views', path.join(path.resolve(),'src','views'))

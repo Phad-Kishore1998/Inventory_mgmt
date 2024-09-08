@@ -52,8 +52,11 @@ export default class ProductController {
     addNewProduct(req, res) {
         //getting data from form and printing on console.
         console.log(req.body)
+        //we pass all the data to model from controller
+        ProductModel.add(req.body)
+        let products = ProductModel.get();
         //before rendering get the data from the form
-        render('products', {products: products})
+        return res.render('products', {products})
     }
 
 }
