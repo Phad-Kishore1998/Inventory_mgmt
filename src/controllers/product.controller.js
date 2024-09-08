@@ -56,7 +56,11 @@ export default class ProductController {
         ProductModel.add(req.body)
         let products = ProductModel.get();
         //before rendering get the data from the form
-        return res.render('products', {products})
+        
+        //return res.render('products', {products})
+        //if we wont redirect the post will be called causing resubmission again and again
+        
+        return res.redirect('/')
     }
 
 }
