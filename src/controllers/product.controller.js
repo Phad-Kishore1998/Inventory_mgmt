@@ -1,14 +1,16 @@
 //ES6 module syntax
 import path from 'path'
+import ProductModel from '../models/product.model.js'; //accessing data in controller
+//since method get is static we can simply use it
 
 export default class ProductController {
 
     //it returns the html file which we have in view folder
     //its kind of middleware having access to request and response
     getProducts(req, res){
+        /*
         //function is from express we have to specify the path of file
         console.log(path.resolve()); // Error: ENOENT: no such file or directory, stat '/workspaces/Inventory_mgmt/index.html'
-        /*
         res.sendFile(path.join(path.resolve(),'','index.html')) //using path module 
         //path.resolve gives the path of current directory gives the controller path
 
@@ -21,7 +23,58 @@ export default class ProductController {
         //so we are in root directory and we have to go in 'src','views'
         and not using any / \ as mac and windows issue
         */
-        res.sendFile(path.join(path.resolve(),'src','views','products.html')) //using path module 
-        
+        let products = ProductModel.get();
+        console.log(products); //We are able to retrive data from the files in Models.
+        //Now the question is to place this data in the html content of products.html
+        //That is adding model data in view. Using View Engines (template Engines).
+        //To send data and ejs from the controler
+        //as we have already specified the views in the server only say products
+        res.render("products", {products:products})
+        //what ever keys we are specifying here "products"
+        //same have to be used in html as well.
+
+        // return res.sendFile(
+        //     path.join(path.resolve(),'src','views','products.html')
+        // ) //using path module 
+
     }
 }
+
+/*
+Dynamic content to be added in HTML file
+let message ="A message from MARS";
+
+<p> A message from MARS</p>
+<p> <%=message%></p> // Syntax for view Engine
+:=> idea is to access the js variable in html Content.
+
+In express we use ejs. As ejs is very similar to HTML.
+
+https://www.npmjs.com/package/ejs : get it from here
+
+Features:
+Control flow with <% %>
+Escaped output with <%= %> (escape function configurable)
+Unescaped raw output with <%- %>
+Newline-trim mode ('newline slurping') with -%> ending tag
+Whitespace-trim mode (slurp all whitespace) for control flow with <%_ _%>
+Custom delimiters (e.g. [? ?] instead of <% %>)
+Includes
+Client-side support
+Static caching of intermediate JavaScript
+Static caching of templates
+Complies with the Express view system
+
+npm i ejs to install it
+
+Now inform our server that we are using view Engine
+
+Browser dont understand ejs :=> After rendering our code in html will be hardcode.
+but ejs will work and handle.
+
+but before this we update the controller that it will return the ejs and also send product data.
+because browser dont understand ejs convert the rendered js part in html file to plain html
+and then renders it on browser.
+
+
+*/
