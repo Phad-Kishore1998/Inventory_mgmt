@@ -21,6 +21,11 @@ export default class ProductModel {
     );
     products.push(newProduct);
   }
+
+  //Using for Udpdate the product
+  static getById(id) {
+    return products.find((p) => p.id == id);
+  }
 }
 
 var products = [

@@ -27,6 +27,24 @@ class ProductsController {
     var products = ProductModel.getAll();
     res.render('index', { products });
   }
+
+  getUpdateProductView(req, res, next) {
+    //1. If product exists then return view
+    const {id}=req.body; //getting the id from the request
+    const productFound = ProductModel.getById(id);
+    if(productFound){
+      res.render('update-product', {
+        product: productFound, //returning the product
+        errorMessage:null,
+      }); //this is the view for update product
+      //since we want to see the existing details as well we pass the products as data
+
+    } else {
+      //2. else show error.
+      res.status(401).send("Product not found");
+    }
+  }
+
 }
 
 export default ProductsController;

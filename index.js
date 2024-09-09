@@ -20,8 +20,13 @@ app.set(
 
 app.get('/', productsController.getProducts);
 app.get(
-  '/new',
+  '/add-product',
   productsController.getAddProduct
+);
+
+app.get(
+  '/update-product',
+  productsController.getUpdateProductView
 );
 
 //here we add the validation middleware before calling postAddProducts
