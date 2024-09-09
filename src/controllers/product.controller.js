@@ -30,11 +30,17 @@ class ProductsController {
 
   getUpdateProductView(req, res, next) {
     //1. If product exists then return view
-    const {id}=req.body; //getting the id from the request
+    //const {id}=req.body; //getting the id from the request
+    //Since the id is not in the request but in the url we use
+    const id=req.params.id;
+    //it allows to access all the parameters in the url
     const productFound = ProductModel.getById(id);
+
     if(productFound){
       res.render('update-product', {
         product: productFound, //returning the product
+        //Enchanement: Since we are already passing the product here and we want to 
+        //have existing value prefilled in the form of update.
         errorMessage:null,
       }); //this is the view for update product
       //since we want to see the existing details as well we pass the products as data
@@ -42,7 +48,10 @@ class ProductsController {
     } else {
       //2. else show error.
       res.status(401).send("Product not found");
+      //We have the Option to send the Error Page like Not Found TO_DO
     }
+    //To avoid the error Product not found we have to pass the id in the URL but how?
+
   }
 
 }

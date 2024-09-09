@@ -28,8 +28,14 @@
                     <img src="<%= product.imageUrl %>" alt="<%= product.name %>" style="max-width: 100px;">
                 </td>
                 <td>
-                    <a href="/update-product" class="btn btn-warning">Update</a>
+                    <a href="/update-product/<%= product.id %>" class="btn btn-warning">Update</a>
                     <!-- Currently clicking on it : gives Product not found according to Controller -->
+                     <!-- We want to pass the id of the product in the url to retrive
+                        Since here we are redirecting on clicking the button Update:
+                                 <a href="/update-product" class="btn btn-warning">Update</a>
+                        Passing the url parameter and extract the value in server code:
+                        Using embedded Javascript. :  href="/update-product/<%= product.id %>
+                     -->
                 </td>
             </tr>
             <% }) %>

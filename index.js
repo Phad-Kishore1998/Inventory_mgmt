@@ -24,16 +24,26 @@ app.get(
   productsController.getAddProduct
 );
 
+// app.get(
+//   '/update-product',
+//   productsController.getUpdateProductView
+// );
+
+//Cannot GET /update-product/1 
+//This means that there is no URL to route (handle the request)
+//As our previous url is not handling passed parameter.
+//We need a placeholder so that the value in it can be later on accessible on Controller.
+
 app.get(
-  '/update-product',
+  '/update-product/:id',
   productsController.getUpdateProductView
 );
 
 //here we add the validation middleware before calling postAddProducts
 app.post('/', validationMiddleware, productsController.postAddProduct);
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(3400, () => {
+  console.log('Server is running on port 3400');
 });
 
 
