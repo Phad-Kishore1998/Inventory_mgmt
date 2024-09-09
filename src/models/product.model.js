@@ -26,6 +26,18 @@ export default class ProductModel {
   static getById(id) {
     return products.find((p) => p.id == id);
   }
+
+  //Function for post update call in controller
+  static update(productObj){
+    //updating a item inside the array
+    const index = products.findIndex(
+      (p) => p.id == productObj.id
+      //we find the index of the id to update
+    );
+    //on that index we replace the object values
+    products[index] = productObj;
+  }
+
 }
 
 var products = [

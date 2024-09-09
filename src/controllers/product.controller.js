@@ -54,6 +54,13 @@ class ProductsController {
 
   }
 
+  postUpdateProduct(req, res){
+    //Mostly similar to Add Product only to function for update
+    ProductModel.update(req.body); //simply call the update function of the model.
+    var products = ProductModel.getAll();
+    res.render('index', { products });
+  }
+
 }
 
 export default ProductsController;

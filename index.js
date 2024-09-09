@@ -39,6 +39,12 @@ app.get(
   productsController.getUpdateProductView
 );
 
+//post request on the url for update the data
+app.post(
+  '/update-product', 
+  productsController.postUpdateProduct
+);
+
 //here we add the validation middleware before calling postAddProducts
 app.post('/', validationMiddleware, productsController.postAddProduct);
 
