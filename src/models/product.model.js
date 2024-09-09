@@ -13,7 +13,8 @@ export default class ProductModel {
 
   static add(productObj) {
     let newProduct = new ProductModel(
-      products.length + 1,
+      products.length + 1, //this approach is not good as when we delete a product there will
+      //similar ids as id depends on the length DB will handle it better way.
       productObj.name,
       productObj.desc,
       productObj.price,
@@ -36,6 +37,14 @@ export default class ProductModel {
     );
     //on that index we replace the object values
     products[index] = productObj;
+  }
+
+  static delete(id) {
+    const index = products.findIndex(
+      (p) => p.id == id
+      //we find the index of the id to update
+    );
+    products.splice(index, 1);
   }
 
 }

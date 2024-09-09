@@ -45,6 +45,12 @@ app.post(
   productsController.postUpdateProduct
 );
 
+//all the request from the anchor tags are get request
+app.get(
+  '/delete-product/:id',
+  productsController.deleteProduct
+);
+
 //here we add the validation middleware before calling postAddProducts
 app.post('/', validationMiddleware, productsController.postAddProduct);
 
