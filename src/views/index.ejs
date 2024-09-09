@@ -36,7 +36,21 @@
                         Passing the url parameter and extract the value in server code:
                         Using embedded Javascript. :  href="/update-product/<%= product.id %>
                      -->
+                     <!-- <a href="/delete-product/<%= product.id %>" class="btn btn-danger">Delete</a> -->
+                     <!-- Created a button with function and passing the id as well.
+                     We will add the js in the frontend.
+                     But we can do here is create a public folder
+                     in this Public Folder: We can write js code
+                     This has to be statically served So,
+                     We have this public folder exposed statically to our client in index.js 
+                     -->
+                     <button class="btn btn-danger" onclick="deleteProduct('<%= product.id %>')">Delete</button>
+                     <!-- 
                      <a href="/delete-product/<%= product.id %>" class="btn btn-danger">Delete</a>
+                     Delete function is initially called by the button itself
+                      But we have to build a javascript confirmation function and from that func
+                      we call the API
+                       -->
                 </td>
             </tr>
             <% }) %>

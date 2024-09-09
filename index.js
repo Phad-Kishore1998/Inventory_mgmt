@@ -11,6 +11,8 @@ const productsController =
 //like this ejslayout it applys middleware to all the request of application
 app.use(ejsLayouts);
 app.use(express.json());
+//Why we are doing this so that JS can be directly exist in our views
+app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set(
@@ -46,7 +48,7 @@ app.post(
 );
 
 //all the request from the anchor tags are get request
-app.get(
+app.post(
   '/delete-product/:id',
   productsController.deleteProduct
 );
