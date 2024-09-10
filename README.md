@@ -1,4 +1,4 @@
-# Inventory_mgmt
+# Inventory_mgmt: Study Related App
 An MVC application in ExpressJS
 
 
@@ -13,3 +13,5 @@ To start creating the Project.
 8. Add any port needed for Forwarding.
 9. npm init give Porject Details
 10. npm i express to install express
+
+
