@@ -3,6 +3,7 @@ import ProductsController from './src/controllers/product.controller.js';
 import ejsLayouts from 'express-ejs-layouts';
 import path from 'path';
 import validationMiddleware from './src/middlewares/validation.middleware.js';
+import { uploadFile } from './src/middlewares/file-upload.middleware.js';
 
 const app = express();
 const productsController =
@@ -22,7 +23,7 @@ app.set(
 
 app.get('/', productsController.getProducts);
 app.get(
-  '/add-product',
+  '/new-product',
   productsController.getAddProduct
 );
 
@@ -54,7 +55,10 @@ app.post(
 );
 
 //here we add the validation middleware before calling postAddProducts
-app.post('/', validationMiddleware, productsController.postAddProduct);
+app.post('/', 
+   uploadFile.single('imageUrl'), //returns a single file associated with the given form field
+   validationMiddleware, //validate expect a form data and can not process multipart data
+   productsController.postAddProduct);
 
 app.listen(3400, () => {
   console.log('Server is running on port 3400');

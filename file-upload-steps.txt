@@ -19,3 +19,9 @@ which is primarily used for uploading files.
 https://github.com/expressjs/multer#readme
 
 Read for Details.
+
+1. npm  i multer
+
+2. View Changes. AddProduct and UpdateProduct Views these two files changes needed.
+
+3. Create images folder in public

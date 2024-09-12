@@ -15,7 +15,9 @@
         :=> <input type="url" class="form-control" id="imageUrl" name="imageUrl" required>
         We validate from the server-side
      -->
-<form action="/" method="post">
+<form action="/" method="post" enctype="multipart/form-data">
+    <!-- This <form action="/" method="post"> this is no form only text there will be binary data
+        send to our server. so have to add type="multipart" -->
     <div class="mb-3">
         <label for="name" class="form-label">Product Name</label>
         <input type="text" class="form-control" id="name" name="name"> 
@@ -30,7 +32,11 @@
     </div>
     <div class="mb-3">
         <label for="imageUrl" class="form-label">Image URL</label>
-        <input type="text" class="form-control" id="imageUrl" name="imageUrl" required>
+        <!-- <input type="text" class="form-control" id="imageUrl" name="imageUrl" required> 
+        This is needed to be changed for file-Upload as we want to have input of type file
+        and specify that we only want to accept images
+        -->
+        <input type="file" name="imageUrl" id="imageUrl"  accept="images/*" />
     </div>
     <button type="submit" class="btn btn-primary">Add Product</button>
 </form>
