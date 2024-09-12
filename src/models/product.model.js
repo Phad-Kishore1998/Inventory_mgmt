@@ -11,14 +11,20 @@ export default class ProductModel {
     return products;
   }
 
-  static add(productObj) {
+  //no more productObj
+  static add(name, desc, price, imageUrl) {
     let newProduct = new ProductModel(
       products.length + 1, //this approach is not good as when we delete a product there will
       //similar ids as id depends on the length DB will handle it better way.
-      productObj.name,
-      productObj.desc,
-      productObj.price,
-      productObj.imageUrl
+      // productObj.name,
+      // productObj.desc,
+      // productObj.price,
+      // productObj.imageUrl //filename or the url is a different object now 
+      name,
+      desc,
+      price,
+      imageUrl
+
     );
     products.push(newProduct);
   }

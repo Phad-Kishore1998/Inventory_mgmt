@@ -23,7 +23,11 @@ class ProductsController {
  
   postAddProduct(req, res, next) {
     //controller does need to know about its middleware its not his responsibility
-    ProductModel.add(req.body);
+     //ProductModel.add(req.body);
+    const {name, desc, price} = req.body;
+    const imageUrl = 'images/' + req.file.filename; 
+    //req.file.filename added by middleware in request object
+    ProductModel.add(name,desc, price, imageUrl);
     var products = ProductModel.getAll();
     res.render('index', { products });
   }
