@@ -1,0 +1,21 @@
+We are going to use file upload in image url for product.
+To achieve this we are using 3rd party library: multr
+
+1. Install multr
+2. Update View (for specific image upload)
+3. Middleware to handle files(saving the file on server in a separate folder and 
+take that url and store in memory array)
+4. Apply that Middleware
+5. Update Controller to update urls of image.
+
+
+https://www.npmjs.com/package/multer
+Multer is a node.js middleware for handling multipart/form-data(multipart form data means
+using a HTML form we are able to send binary data such as files,images,PDFs and all), 
+which is primarily used for uploading files.
+ It is written on top of busboy for maximum efficiency.
+
+
+https://github.com/expressjs/multer#readme
+
+Read for Details.
