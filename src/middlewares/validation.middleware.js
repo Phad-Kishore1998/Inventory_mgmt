@@ -47,9 +47,11 @@ const validateRequest = async (req, res, next) => {
       //rules on the individual fields for this we import the body from the express validator
       body('name').notEmpty().withMessage("Name is required"),
       body('price').isFloat({gt:0}).withMessage("Price should be positive Value"),
-      body('imageUrl').custom(value, {req} => {
+      body('imageUrl').custom((value, {req}) => {
         if(!req.file){
           throw new Error('Image is required');
+        }else{
+          return true;
         }
       })
       // body('imageUrl').isURL().withMessage("Invalid url"),
